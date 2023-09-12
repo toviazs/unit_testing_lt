@@ -1,9 +1,12 @@
 # pylint:disable-all
 
-class inventory:
+class Inventory:
     def __init__(self, max_products):
         self.products = {}
         self.max_products = max_products
+
+    def size(self):
+        return len(self.products)
 
     def add_product(self, product_name, stock_quantity):
         if len(self.products) == self.max_products:
@@ -25,6 +28,7 @@ class inventory:
 
     def calculate_stock_value(self, price_map):
         value = 0
-        for product_name, stock_quantity in self.products:
-            value += price_map.get(product_name) * stock_quantity
+        for product_name, stock_quantity in self.products.items():
+            unit_price = price_map.get(product_name)
+            value += unit_price * stock_quantity
         return value
