@@ -1,0 +1,93 @@
+from inventory import Inventory
+from database import Database
+from unittest.mock import Mock
+import pytest
+
+@pytest.fixture
+def inv(): 
+    return Inventory(5)
+
+
+def test_add_product_to_inventory(inv):
+    # # Arrange
+    # inv = Inventory(5)
+
+    # Act
+    inv.add_product("Silla", 3)
+
+    # Assert
+    assert inv.size() == 1
+
+
+def test_add_product_over_max_raises_exception(inv): 
+    # Arrange
+    # inv = Inventory(5)
+    inv.add_product('ProdA', 2)
+    inv.add_product('ProdB', 4)
+    inv.add_product('ProdC', 7)
+    inv.add_product('ProdD', 1)
+    inv.add_product('ProdE', 9)
+
+    # Act and assert
+    with pytest.raises(OverflowError): 
+        inv.add_product("Escritorio", 6)
+
+    
+def test_get_stock_from_existing_product(inv): 
+    # Arrange
+    # inv = Inventory(5)
+    inv.add_product('ProdA', 2)
+
+    # Act
+    stock = inv.get_stock('ProdA')
+    
+    # Assert
+    assert stock == 2
+    
+
+def test_add_product_modifies_existing_product(inv): 
+    # Arrange
+    # inv = Inventory(5)
+    inv.add_product('ProdA', 2)
+    
+    # Act
+    inv.add_product('ProdA', 4)
+    modified_stock = inv.get_stock('ProdA')
+    
+    # Assert
+    assert modified_stock == 4
+
+# here is the moment to introduce fixture and use it upwards
+
+def test_calculate_stock_value(inv): 
+    # Arrange
+    inv.add_product('ProdA', 1)
+    inv.add_product('ProdB', 1)
+    database = Database()
+    def mock_get(product_name): 
+        return 4.0 if product_name == "ProdA" else 5.0
+    database.get = Mock(side_effect=mock_get)
+
+    # Act
+    value = inv.calculate_stock_value(database)
+
+    # Assert
+    assert value == 9.0
+
+# here we mock the database.get method
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+

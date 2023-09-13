@@ -14,12 +14,6 @@ class Inventory:
         else:
             self.products[product_name] = stock_quantity
 
-    def update_stock(self, product_name, new_stock_quantity):
-        if product_name in self.products:
-            self.products[product_name] = new_stock_quantity
-        else:
-            raise ValueError(f"Product {product_name} not found in inventory")
-
     def get_stock(self, product_name) -> int:
         if product_name in self.products:
             return self.products[product_name]
