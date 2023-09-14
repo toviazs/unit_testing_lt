@@ -64,9 +64,7 @@ def test_calculate_stock_value(inv):
     inv.add_product('ProdA', 1)
     inv.add_product('ProdB', 1)
     database = Database()
-    def mock_get(product_name): 
-        return 4.0 if product_name == "ProdA" else 5.0
-    database.get = Mock(side_effect=mock_get)
+    database.get = Mock(side_effect=lambda x: 4.0 if x == "ProdA" else 5.0)
 
     # Act
     value = inv.calculate_stock_value(database)
