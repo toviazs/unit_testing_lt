@@ -16,7 +16,7 @@ def test_add_product_to_inventory(inv):
     inv.add_product("Silla", 3)
 
     # Assert
-    assert inv.size() == 1
+    assert "Silla" in inv.products
 
 
 def test_add_product_over_max_raises_exception(inv): 
