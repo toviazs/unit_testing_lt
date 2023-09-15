@@ -61,18 +61,18 @@ def test_add_product_modifies_existing_product(inv):
 
 def test_calculate_stock_value(inv): 
     # Arrange
-    inv.add_product('ProdA', 1)
-    inv.add_product('ProdB', 1)
-    database = Database()
-    database.get = Mock(side_effect=lambda x: {"ProdA": 4.0, "ProdB": 5.0}.get(x))
-
+    inv.add_product("ProdA", 1)
+    inv.add_product("ProdB", 2)
+    database_mock = Mock(spec=Database)
+    database_mock.get.side_effect = lambda x: {"ProdA": 2.0, "ProdB": 3.0}.get(x)
+    
     # Act
-    value = inv.calculate_stock_value(database)
-
+    value = inv.calculate_stock_value(database_mock)
+    
     # Assert
-    assert value == 9.0
-    database.get.assert_has_calls(calls=[call("ProdA"), call("ProdB")])
-
+    assert value == 8.0
+    database_mock.get.assert_has_calls(calls=[call("ProdA"), call("ProdB")])
+    
 # here we mock the database.get method
 
     
