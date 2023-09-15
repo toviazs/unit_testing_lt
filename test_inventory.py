@@ -1,6 +1,6 @@
 from inventory import Inventory
 from database import Database
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 import pytest
 
 @pytest.fixture
@@ -71,6 +71,7 @@ def test_calculate_stock_value(inv):
 
     # Assert
     assert value == 9.0
+    database.get.assert_has_calls(calls=[call("ProdA"), call("ProdB")])
 
 # here we mock the database.get method
 
