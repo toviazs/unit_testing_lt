@@ -13,10 +13,10 @@ def test_add_product_to_inventory(inv):
     # inv = Inventory(5)
 
     # Act
-    inv.add_product("Silla", 3)
+    inv.add_product("ProdA", 3)
 
     # Assert
-    assert "Silla" in inv.products
+    assert "ProdA" in inv.products
 
 
 def test_add_product_over_max_raises_exception(inv): 
@@ -30,7 +30,7 @@ def test_add_product_over_max_raises_exception(inv):
 
     # Act and assert
     with pytest.raises(OverflowError): 
-        inv.add_product("Escritorio", 6)
+        inv.add_product("ProdF", 6)
 
     
 def test_get_stock_from_existing_product(inv): 
