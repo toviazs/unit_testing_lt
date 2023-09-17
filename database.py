@@ -1,3 +1,3 @@
 class Database: 
-    def get(product_name): 
+    def get(self, product_name): 
         pass
